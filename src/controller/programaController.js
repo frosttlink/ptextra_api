@@ -1,0 +1,63 @@
+import alterarProgramaService from "../service/tbCanalPrograma/alterarProgramaService.js";
+import deletarProgramaService from "../service/tbCanalPrograma/deletarProgramaService.js";
+import selecionarProgramaService from "../service/tbCanalPrograma/selecionarProgramaService.js";
+import adicionarProgramaService from "../service/tbCanalPrograma/adicionarProgramaService.js";
+
+import { Router } from "express";
+import selecionarUsuarioService from "../service/tbUsuario/selecionarUsuarioService.js";
+
+const endpoint = Router();
+
+endpoint.post("/programa", async (req, resp) => {
+  try {
+    let programa = req.body;
+    let idGerado = await adicionarProgramaService(programa);
+
+    resp.send({
+      id: idGerado,
+    });
+
+  } catch (error) {
+    resp.status(400).send();
+  }
+});
+
+endpoint.put("/programa/:id", async (req, resp) => {
+  try {
+    let programa = req.body
+    let id = req.params.id
+
+    let linhasAfetadas = await alterarProgramaService(programa, id)
+
+    resp.status(204).send()
+
+  } catch (error) {
+    resp.status(400).send()
+  }
+});
+
+endpoint.delete("/programa/:id", async (req, resp) => {
+  try {
+    let id = req.params.id
+
+    let linhasAfetadas = await deletarProgramaService(id)
+
+    resp.status(204).send()
+    
+  } catch (error) {
+    resp.status(400).send()
+  }
+});
+
+endpoint.get("/programa", async (req, resp) => {
+  try {
+    let registro = await selecionarUsuarioService()
+
+    resp.send(registro)
+    
+  } catch (error) {
+    resp.status(400).send()
+  }
+});
+
+export default endpoint;
