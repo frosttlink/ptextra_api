@@ -4,7 +4,7 @@ import selecionarProgramaService from "../service/tbCanalPrograma/selecionarProg
 import adicionarProgramaService from "../service/tbCanalPrograma/adicionarProgramaService.js";
 
 import { Router } from "express";
-import selecionarUsuarioService from "../service/tbUsuario/selecionarUsuarioService.js";
+import selecionarProgramaPorIdService from "../service/tbCanalPrograma/selecionarProgramaPorIdService.js";
 
 const endpoint = Router();
 
@@ -51,7 +51,20 @@ endpoint.delete("/programa/:id", async (req, resp) => {
 
 endpoint.get("/programa", async (req, resp) => {
   try {
-    let registro = await selecionarUsuarioService()
+    let registro = await selecionarProgramaService()
+
+    resp.send(registro)
+    
+  } catch (error) {
+    resp.status(400).send()
+  }
+});
+
+endpoint.get("/programa/:id", async (req, resp) => {
+  try {
+    let id = req.params.id
+
+    let registro = await selecionarProgramaPorIdService(id)
 
     resp.send(registro)
     

@@ -67,8 +67,6 @@ export async function selecionarCanal() {
   return info;
 }
 
-
-
 export async function selecionarCanalPorId(id) {
   let comando = `
   select nm_canal as nomeCanal,
@@ -84,4 +82,3 @@ export async function selecionarCanalPorId(id) {
 
   return info[0];
 }
-

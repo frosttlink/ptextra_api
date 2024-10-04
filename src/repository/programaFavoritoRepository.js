@@ -57,3 +57,19 @@ export async function selecionarProgramaFavorito() {
 
   return registros;
 }
+
+export async function selecionarProgramaFavoritoPorId(id) {
+  let comando = `
+    select id_usuario, 
+    id_canal_programa, 
+    vl_avaliacao 
+    from tb_programa_favorito
+    where id_usuario = ?
+  `;
+
+  let registro = await con.query(comando, [id]);
+
+  let info = registro[0];
+
+  return info[0];
+}

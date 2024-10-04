@@ -56,7 +56,22 @@ export async function deletarPrograma(id) {
   return linhasAlteradas;
 }
 
-export async function selecionarPrograma(id) {
+export async function selecionarPrograma() {
+  let comando = `
+  select id_canal as canal,
+   nm_programa as nomePrograma,
+    ds_genero as genero,
+     hr_programa from tb_canal_programa  
+  `;
+
+  let registro = await con.query(comando);
+  
+  let info = registro[0];
+
+  return info;
+}
+
+export async function selecionarProgramaPorId(id) {
   let comando = `
   select id_canal as canal,
    nm_programa as nomePrograma,
@@ -66,7 +81,8 @@ export async function selecionarPrograma(id) {
   `;
 
   let registro = await con.query(comando, [id]);
+
   let info = registro[0];
 
-  return info;
+  return info[0];
 }
