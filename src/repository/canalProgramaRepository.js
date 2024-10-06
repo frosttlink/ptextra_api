@@ -10,7 +10,7 @@ export async function adicionarPrograma(programa) {
     programa.canal,
     programa.nome,
     programa.genero,
-    programa.hora
+    programa.hora,
   ]);
   let info = registro[0];
 
@@ -58,14 +58,15 @@ export async function deletarPrograma(id) {
 
 export async function selecionarPrograma() {
   let comando = `
-  select id_canal as canal,
-   nm_programa as nomePrograma,
-    ds_genero as genero,
-     hr_programa from tb_canal_programa  
+  select id_canal as idCanal,
+	nm_programa as nomePrograma,
+    ds_genero as generoPrograma,
+	hr_programa as horarioPrograma
+ from tb_canal_programa;
   `;
 
   let registro = await con.query(comando);
-  
+
   let info = registro[0];
 
   return info;
@@ -73,11 +74,12 @@ export async function selecionarPrograma() {
 
 export async function selecionarProgramaPorId(id) {
   let comando = `
-  select id_canal as canal,
-   nm_programa as nomePrograma,
-    ds_genero as genero,
-     hr_programa from tb_canal_programa
-     where id_canal = ?;  
+  select id_canal as idCanal,
+	nm_programa as nomePrograma,
+    ds_genero as generoPrograma,
+	hr_programa as horarioPrograma
+ from tb_canal_programa
+     where id_canal = ?; 
   `;
 
   let registro = await con.query(comando, [id]);

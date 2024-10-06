@@ -49,7 +49,10 @@ export async function deletarProgramaFavorito(id) {
 
 export async function selecionarProgramaFavorito() {
   let comando = `
-    select id_usuario, id_canal_programa, vl_avaliacao  from tb_programa_favorito;
+    select id_usuario as usuario, 
+    id_canal_programa as programa, 
+    vl_avaliacao as avaliacao  
+    from tb_programa_favorito;
   `;
 
   let registro = await con.query(comando);
@@ -60,11 +63,12 @@ export async function selecionarProgramaFavorito() {
 
 export async function selecionarProgramaFavoritoPorId(id) {
   let comando = `
-    select id_usuario, 
-    id_canal_programa, 
-    vl_avaliacao 
+    select id_programa_favorito as idProgramaFav,
+    id_usuario as usuario, 
+    id_canal_programa as programa, 
+    vl_avaliacao as avaliacao
     from tb_programa_favorito
-    where id_usuario = ?
+    where id_programa_favorito = ?
   `;
 
   let registro = await con.query(comando, [id]);

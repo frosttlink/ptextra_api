@@ -38,8 +38,9 @@ export async function deletarUsuario(id) {
 
 export async function selecionarUsuario() {
   let comando = `
-   select nm_usuario as nomeUsuario
-   from tb_usuario
+    select id_usuario as idUsuario, 
+    nm_usuario as nomeUsuario
+    from tb_usuario
   `;
 
   let registro = await con.query(comando);
@@ -51,9 +52,10 @@ export async function selecionarUsuario() {
 
 export async function selecionarUsuarioPorId(id) {
   let comando = `
-   select nm_usuario as nomeUsuario
-   from tb_usuario
-   where id_usuario = ?
+    select id_usuario as idUsuario, 
+    nm_usuario as nomeUsuario
+    from tb_usuario
+    where id_usuario = ?;
   `;
 
   let registro = await con.query(comando, [id]);
